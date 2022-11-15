@@ -1,0 +1,10 @@
+MariaDB [lms]> delimiter ;
+MariaDB [lms]> delimiter &&
+MariaDB [lms]> create trigger student_details
+    -> before delete on add_student
+    ->  for each row begin
+    -> if old.id is not null then
+    -> insert into student_delete_info(student_id,name,email,username,password) values(old.student_id,old.name,old.email,old.username,old.password);
+    -> end if;
+    -> end &&
+Query OK, 0 rows affected (0.123 sec)
